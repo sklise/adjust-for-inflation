@@ -49,13 +49,13 @@
    (* amount (/ (get table target_year) (get table base_year)))))
 
 (defn init []
-  (let [clicks (listen (dom/getElement "one") "click")
+  (let [clicks (listen (dom/getElement (str "key-" 1)) "click")
         output (dom/getElement "input-val")]
     (go (while true
           (<! clicks)
           (set! (.-value output) (str (.-value output) "1") ))))
 
-  (let [clicks (listen (dom/getElement "two") "click")
+  (let [clicks (listen (dom/getElement (str "key-" 2)) "click")
         output (dom/getElement "input-val")]
     (go (while true
           (<! clicks)
