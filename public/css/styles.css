@@ -1,0 +1,26 @@
+body {
+  background-color: #2F8E2F;
+  color: #FFFDF4;
+  font-family: 'adobe garamond pro';
+  text-align: center;
+}
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: inherit;
+  border-width: 1px;
+  border-style: solid;
+  border-right-color:  #306020 ;
+  border-bottom-color: #306020 ;
+  border-top-color: #49AC39;
+  border-left-color: #49AC39;
+  color: white;
+  display: block;
+  float: left;
+  width: 33%;
+  height: 4em;
+  font-size: 2em;
+  margin: 0;
+  padding: 1em;
+}
