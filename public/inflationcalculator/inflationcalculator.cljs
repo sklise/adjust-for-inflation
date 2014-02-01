@@ -49,20 +49,20 @@
    (* amount (/ (get table target_year) (get table base_year)))))
 
 (defn bind-key [num input]
-  (.log js/console "hi")
   (let [clicks (listen (dom/getElement (str "key-" num)) "click")
-        output (dom/getElement input)]
+        output (dom/getElement input)
+        startyear (int (get-value "start-year"))
+        targetyear (int (get-value "end-year"))]
     (go (while true
           (<! clicks)
-          (set! (.-value output) (str (.-value output) num) )))))
+          (set! (.-value output) (str (.-value output) num))
+          (set! (.-innerHTML (dom/getElement "output-val")) (discount cpis (.-value output) startyear targetyear)
+                )))))
 
 (defn bind-input [i]
   (fn [n] (bind-key n i)))
 
 (def bind-number-key (bind-input "input-val"))
-
-(for [n (range 0 9)]
-  (.log js/console "hey"))
 
 (defn init []
   (bind-number-key 1)

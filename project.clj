@@ -14,7 +14,7 @@
     {:builds [{:id "inflationcalculator"
                :source-paths ["src"],
                :compiler {
-                  :source-map true,
+                  :source-map "inflationcalculator.js.map",
                   :output-to "public/inflationcalculator.js",
                   :output-dir "public"
                   :optimizations :none}}]})

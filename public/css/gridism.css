@@ -85,7 +85,7 @@
 /* Responsive Stuff */
 @media screen and (max-width: 568px) {
   /* Stack anything that isn’t full-width on smaller screens */
-  .grid .unit {
+  .grid .unit *[class!=one-third] {
     width: 100% !important;
     padding-left: 20px;
     padding-right: 20px;

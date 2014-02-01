@@ -7,7 +7,6 @@ body {
 
 #wrapper {
   max-width: 700px;
-  margin: 0 auto;
 }
 
 button {
@@ -22,16 +21,6 @@ button {
   border-left-color: #49AC39;
   color: white;
   display: block;
-  /*float: left;*/
-  /*width: 33%;*/
   height: 4em;
   font-size: 2em;
-  /*margin: 0;*/
-  /*padding: 1em;*/
-}
-
-.year-select {
-  height: 22px;
-  font-size: 18px;
-  font-family: inherit;
 }
