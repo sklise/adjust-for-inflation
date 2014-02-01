@@ -1,7 +1,9 @@
 body {
   background-color: #2F8E2F;
   color: #FFFDF4;
-  font-family: 'adobe garamond pro';
+  font-family: 'helvetica neue','helvetica',sans-serif;
+  font-weight: 300;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -10,9 +12,20 @@ body {
   margin: 0 auto;
 }
 
-button {
+h1 {
+  font-size: 30px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+
+#keypad button {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   background: inherit;
   border-width: 1px;
   border-style: solid;
@@ -22,12 +35,9 @@ button {
   border-left-color: #49AC39;
   color: white;
   display: block;
-  /*float: left;*/
-  /*width: 33%;*/
-  height: 4em;
-  font-size: 2em;
-  /*margin: 0;*/
-  /*padding: 1em;*/
+  height: 2em;
+  font-size: 1.6em;
+  font-weight: 300;
 }
 
 .year-select {
