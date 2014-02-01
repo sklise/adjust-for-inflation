@@ -48,6 +48,16 @@ bind_decimal = (decimal, input) ->
       $(input).val("#{previous}.")
     $(input).trigger('input')
 
+bind_swap = (swap, start, end, input) ->
+  $(swap).click ->
+    start_val = $(start).val()
+    end_val = $(end).val()
+    parseInt end_val
+    $(start).val(parseInt end_val)
+    $(end).val(parseInt start_val)
+    $(input).trigger('input')
+    false
+
 get_value = (id) -> $(id).val()
 
 $(->
@@ -57,6 +67,7 @@ $(->
   bind_delete_key "#delete", "#input-val"
   bind_select "#start-year", "#input-val"
   bind_select "#end-year", "#input-val"
+  bind_swap "#swap", "#start-year", "#end-year", '#input-val'
   $('#input-val').on 'input', ->
     $("#output-val").html discount(cpis, get_value("#input-val"), get_value('#start-year'), get_value('#end-year'))
 )
