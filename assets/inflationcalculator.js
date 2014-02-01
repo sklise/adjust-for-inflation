@@ -24,7 +24,7 @@
     if (end_year == null) {
       end_year = (new Date()).getFullYear();
     }
-    return (amount * (table[start_year] / table[end_year])).toFixed(2);
+    return (amount * (table[end_year] / table[start_year])).toFixed(2);
   };
 
   bind_number_key = function(n, input) {

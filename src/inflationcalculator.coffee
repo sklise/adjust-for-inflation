@@ -17,7 +17,7 @@ cpis = {
 }
 
 discount = (table, amount, start_year, end_year=(new Date()).getFullYear()) ->
-  (amount * (table[start_year] / table[end_year])).toFixed(2)
+  (amount * (table[end_year] / table[start_year])).toFixed(2)
 
 bind_number_key = (n, input) ->
   $("#key-#{n}").click ->
