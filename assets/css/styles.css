@@ -1,7 +1,7 @@
 body {
   background-color: #2F8E2F;
   color: #FFFDF4;
-  font-family: 'helvetica neue','helvetica',sans-serif;
+  font-family: 'AmericanTypewriter';
   font-weight: 300;
   font-size: 20px;
   text-align: center;
@@ -27,6 +27,7 @@ h1 {
   -moz-appearance: none;
   appearance: none;
   background: inherit;
+  /*border-position: inset;*/
   border-width: 1px;
   border-style: solid;
   border-right-color:  #306020 ;
@@ -36,8 +37,27 @@ h1 {
   color: white;
   display: block;
   height: 2em;
+  font-family: inherit;
   font-size: 1.6em;
   font-weight: 300;
+  margin: 1px .166666665%;
+  border-radius: 4px;
+  width: 33%;
+  transition: all 100 ease-in-out;
+}
+
+#keypad button:focus {
+  outline: none;
+}
+
+#keypad button:active {
+  background-color: rgba(0,20,0,.3);
+  outline: none;
+  box-shadow: 0 0 5px rgb(255, 230, 43);
+  border-right-color:  #49AC39;
+  border-bottom-color: #49AC39;
+  border-top-color: #306020;
+  border-left-color: #306020;
 }
 
 .year-select {
