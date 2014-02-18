@@ -61,6 +61,7 @@ bind_swap = (swap, start, end, input) ->
 get_value = (id) -> $(id).val()
 
 $(->
+  FastClick.attach(document.body);
   _.each _.range(0,10), (n) ->
     bind_number_key(n, "#input-val")
   bind_decimal "#decimal", "#input-val"
@@ -69,5 +70,5 @@ $(->
   bind_select "#end-year", "#input-val"
   bind_swap "#swap", "#start-year", "#end-year", '#input-val'
   $('#input-val').on 'input', ->
-    $("#output-val").html discount(cpis, get_value("#input-val"), get_value('#start-year'), get_value('#end-year'))
+    $("#output-val").html "$#{discount(cpis, get_value("#input-val"), get_value('#start-year'), get_value('#end-year'))}"
 )

@@ -1,0 +1,95 @@
+@import "normalize";
+@import "griddle";
+@include griddle-build(12);
+@include griddle-build(2);
+@include griddle-build(3);
+@include griddle-build(4);
+
+body {
+  background-color: #2F8E2F;
+  color: #FFFDF4;
+  font-family: 'Avenir-Light';
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+}
+
+#wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#keypad button {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: inherit;
+  border-position: inset;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #306020;
+  // border-right-color:  #306020 ;
+  // border-bottom-color: #306020 ;
+  // border-top-color: #49AC39;
+  // border-left-color: #49AC39;
+  color: white;
+  height: 2em;
+  font-family: inherit;
+  font-size: 1.6em;
+  font-weight: 300;
+  border-radius: 4px;
+  text-align: center;
+  transition: all 40ms ease-in-out;
+  width: 100%;
+  margin-bottom: 0.15em;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    background-color: rgba(0,20,0,.3);
+    outline: none;
+    box-shadow: 0 0 5px rgb(255, 230, 43);
+    border-right-color:  #49AC39;
+    border-bottom-color: #49AC39;
+    border-top-color: #306020;
+    border-left-color: #306020;
+  }
+}
+
+.year-select {
+  height: 22px;
+  font-size: 18px;
+  font-family: inherit;
+  width: 100%;
+  text-align: center;
+}
+
+#output-val {
+  text-align: right;
+}
+
+#input-val {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: rgba(0,0,0,0.15);
+  appearance: none;
+  width: 100%;
+  text-align: right;
+}
