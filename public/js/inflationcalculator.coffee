@@ -56,6 +56,7 @@ bind_swap = (swap, start, end, input) ->
     $(start).val(parseInt end_val)
     $(end).val(parseInt start_val)
     $(input).trigger('input')
+    $(@).toggleClass('reversed')
     false
 
 get_value = (id) -> $(id).val()

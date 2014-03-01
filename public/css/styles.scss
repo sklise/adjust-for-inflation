@@ -1,9 +1,6 @@
 @import "normalize";
-@import "griddle";
-@include griddle-build(12);
-@include griddle-build(2);
-@include griddle-build(3);
-@include griddle-build(4);
+@import "bourbon/bourbon";
+@import "neat/neat";
 
 body {
   background-color: #2F8E2F;
@@ -15,6 +12,7 @@ body {
 }
 
 #wrapper {
+  @include outer-container;
   max-width: 700px;
   margin: 0 auto;
   -moz-box-sizing: border-box;
@@ -31,31 +29,31 @@ h1 {
   text-align: center;
 }
 
+#keypad {
+  margin-top: 0.2em;
+}
+
 #keypad button {
+  @include box-sizing(border-box);
+  @include span-columns(4);
+  @include omega(3n);
+  @include appearance(none);
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   background: inherit;
   border-width: 1px;
   border-style: solid;
   border-color: #306020;
-  // border-right-color:  #306020 ;
-  // border-bottom-color: #306020 ;
-  // border-top-color: #49AC39;
-  // border-left-color: #49AC39;
   color: white;
   height: 2em;
   font-family: inherit;
   font-size: 1.6em;
   font-weight: 300;
-  border-radius: 4px;
   display: block;
   text-align: center;
   transition: all 40ms ease-in-out;
-  width: 100%;
+  margin-bottom: 0.2em;
 
   &:focus {
     outline: none;
@@ -72,12 +70,37 @@ h1 {
   }
 }
 
+#year-selects {
+  @include row;
+}
+
 .year-select {
+  @include span-columns(5);
   height: 22px;
   font-size: 18px;
   font-family: inherit;
-  width: 100%;
   text-align: center;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#end-year {
+  @include omega;
+}
+
+#swap {
+  @include span-columns(2);
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.5em;
+
+  &.reversed {
+    @include transform(rotate(180deg));
+  }
+}
+
+#values {
+  margin: 1em 0 0;
 }
 
 #output-val {
@@ -85,16 +108,14 @@ h1 {
   text-align: right;
 }
 
-#keypad {
-  border: 1px solid #306020;
-}
-
 #input-val {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  font: inherit;
+  font-size: 150%;
+  color: white;
+  @include appearance(none);
   background-color: rgba(0,0,0,0.15);
   border: none;
-  border-bottom: dashed 2px #306020;
+  border-top: dashed 2px #306020;
   border-radius: 0px;
   appearance: none;
   width: 100%;
