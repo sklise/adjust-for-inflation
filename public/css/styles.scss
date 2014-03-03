@@ -2,9 +2,15 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 
+$background:#363740;
+$gray: #585A69;
+$blue: #8CC3F2;
+$green: #68C480;
+$light: #D9C2AD;
+
 body {
-  background-color: #2F8E2F;
-  color: #FFFDF4;
+  background-color: $background;
+  color: $light;
   font-family: 'Avenir-Light';
   font-weight: 300;
   font-size: 20px;
@@ -18,15 +24,16 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0 10px;
+  padding:0.75em 0.5em;
 }
 
 h1 {
-  font-size: 30px;
-  font-weight: 300;
+  color: $blue;
+  font-size: 24px;
   margin: 0;
   padding: 0;
   text-align: center;
+  text-transform: uppercase;
 }
 
 #keypad {
@@ -41,11 +48,15 @@ h1 {
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  background: inherit;
+
+  box-shadow: inset 0 0 2px $background;
+  background: darken(saturate($background,.8),.7);
+  border-radius: 8px;
   border-width: 1px;
   border-style: solid;
-  border-color: #306020;
-  color: white;
+  border-color: $light;
+  border-color: $background;
+  color: inherit;
   height: 2em;
   font-family: inherit;
   font-size: 1.6em;
@@ -60,13 +71,9 @@ h1 {
   }
 
   &:active {
-    background-color: rgba(0,20,0,.3);
+    box-shadow: inset 0 0 8px rgba(0,20,0,.5);
     outline: none;
-    box-shadow: 0 0 5px rgb(255, 230, 43);
-    border-right-color:  #49AC39;
-    border-bottom-color: #49AC39;
-    border-top-color: #306020;
-    border-left-color: #306020;
+    border-color:  $green;
   }
 }
 
@@ -100,7 +107,13 @@ h1 {
 }
 
 #values {
+  overflow: hidden;
   margin: 1em 0 0;
+  border: 1px solid $light;
+
+  div {
+    padding: 0.1em 0.3em;
+  }
 }
 
 #output-val {
@@ -109,16 +122,18 @@ h1 {
 }
 
 #input-val {
+  display: block;
+  min-height: 1em;
   font: inherit;
   font-size: 150%;
-  color: white;
+  color: inherit;
   @include appearance(none);
-  background-color: rgba(0,0,0,0.15);
+  background-color: $gray;
   border: none;
-  border-top: dashed 2px #306020;
+  border-top: dashed 2px $background;
   border-radius: 0px;
   appearance: none;
   width: 100%;
   text-align: right;
-  margin: 0 0 0.2em;
+  margin: 0;
 }
