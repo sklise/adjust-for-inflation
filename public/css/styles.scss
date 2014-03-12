@@ -7,6 +7,8 @@ $gray: #585A69;
 $blue: #8CC3F2;
 $green: #68C480;
 $light: #D9C2AD;
+$background: #585A69;
+$gray: #363740;
 
 body {
   background-color: $background;
@@ -37,7 +39,7 @@ h1 {
 }
 
 #keypad {
-  margin-top: 0.2em;
+  margin-top: 2.35765%;
   @include span-columns(12);
 }
 
@@ -65,7 +67,7 @@ h1 {
   display: block;
   text-align: center;
   transition: all 40ms ease-in-out;
-  margin-bottom: 0.2em;
+  margin-bottom: 2.35765%;
   vertical-align: baseline;
 
   &:focus {
@@ -114,6 +116,8 @@ h1 {
   overflow: hidden;
   margin: 1em 0 0;
   border-radius: 4px;
+  text-align: center;
+  font-size: 170%;
   // border: 1px solid $light;
 
   div {
@@ -122,16 +126,13 @@ h1 {
 }
 
 #output-val {
-  font-size: 150%;
-  text-align: right;
+  border: 1px solid transparentize($gray,.4);
+  border-bottom: none;
 }
 
 #input-val {
   display: block;
   min-height: 1em;
-  font: inherit;
-  font-size: 150%;
-  color: inherit;
   @include appearance(none);
   background: transparentize($gray,.4);
   border: none;
@@ -139,6 +140,5 @@ h1 {
   border-radius: 0px;
   appearance: none;
   width: 100%;
-  text-align: right;
   margin: 0;
 }
