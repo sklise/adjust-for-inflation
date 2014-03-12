@@ -61,13 +61,16 @@ YearSelects = React.createClass
       YearSelect({id:"end-year", data:cpis})
 
 NumberKey = React.createClass
+  click: -> @props.click(@props.number)
   render: ->
-    React.DOM.button {id:"key-#{@props.number}",onClick:@props.click}, @props.number
+    React.DOM.button {id:"key-#{@props.number}", onClick: @click}, @props.number
 
 Monies = React.createClass
   getInitialState: -> result:0.00,input:0.00
   handleInput: (event) ->
-    console.log true
+    @setState
+      input: parseFloat "#{@state.input}#{event}"
+
   render: ->
     numberClick = @handleInput
     React.DOM.div null,
@@ -80,11 +83,13 @@ Monies = React.createClass
       )
 
 mobile = ->
+  monies = Monies()
   React.renderComponent(YearSelects(),document.getElementById("year-selects-container"))
-  React.renderComponent(Monies(),document.getElementById("values-container"))
+  React.renderComponent(monies,document.getElementById("values-container"))
 
+  # TODO: Fix fastclick
   # FastClick.attach(document.body);
-  
+
   bind_decimal "#decimal", "#input-val"
   bind_delete_key "#delete", "#input-val"
   bind_swap "#swap", "#start-year", "#end-year", '#input-val'

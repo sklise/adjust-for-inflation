@@ -38,6 +38,7 @@ h1 {
 
 #keypad {
   margin-top: 0.2em;
+  @include span-columns(12);
 }
 
 #keypad button {
@@ -49,15 +50,15 @@ h1 {
   -webkit-user-select: none;
   user-select: none;
 
-  box-shadow: inset 0 0 2px $background;
+  // box-shadow: inset 0 0 2px $background;
   background: transparentize($gray,.4);
   border-radius: 4px;
   border-width: 1px;
   border-style: solid;
-  border-color: $light;
-  border-color: $background;
+  border-color: $gray;
   color: inherit;
-  height: 2em;
+  height: 58px;
+  overflow: hidden;
   font-family: inherit;
   font-size: 1.6em;
   font-weight: 300;
@@ -65,6 +66,7 @@ h1 {
   text-align: center;
   transition: all 40ms ease-in-out;
   margin-bottom: 0.2em;
+  vertical-align: baseline;
 
   &:focus {
     outline: none;
@@ -74,6 +76,8 @@ h1 {
     box-shadow: inset 0 0 8px rgba(0,20,0,.5);
     outline: none;
     border-color:  $green;
+    // TODO: how to have the font size increase w/o vertical shift;
+    // font-size: 1.9em;
   }
 }
 
