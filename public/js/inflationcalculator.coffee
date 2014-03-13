@@ -1,12 +1,5 @@
 discount = (table, amount, start_year, end_year=(new Date()).getFullYear()) ->
-  (amount * (table[end_year] / table[start_year])).toFixed(2)
-
-bind_number_key = (n, input) ->
-  $("#key-#{n}").click ->
-    previous = $(input).html()
-    $(input).html("#{previous}#{n}")
-    $(input).trigger('input')
-    false
+  (amount * (table[end_year] / table[start_year]))
 
 bind_select = (select, input) ->
   $(select).change ->
@@ -68,12 +61,15 @@ NumberKey = React.createClass
 Monies = React.createClass
   getInitialState: -> result:0.00,input:0.00
   handleInput: (event) ->
+    new_input = parseFloat "#{@state.input}#{event}"
     @setState
-      input: parseFloat "#{@state.input}#{event}"
+      input: new_input
+      result: discount(cpis, new_input, get_value('#start-year'), get_value('#end-year'))
 
   render: ->
     numberClick = @handleInput
     React.DOM.div null,
+      YearSelects(),
       React.DOM.div({id:"values"},
         React.DOM.div {id:"output-val"}, "$#{@state.result.toFixed(2)}"
         React.DOM.div {id:"input-val"}, "$#{@state.input.toFixed(2)}"),
@@ -84,20 +80,17 @@ Monies = React.createClass
 
 mobile = ->
   monies = Monies()
-  React.renderComponent(YearSelects(),document.getElementById("year-selects-container"))
-  React.renderComponent(monies,document.getElementById("values-container"))
+  React.renderComponent(monies,document.getElementById("container"))
 
   # TODO: Fix fastclick
   # FastClick.attach(document.body);
 
   bind_decimal "#decimal", "#input-val"
   bind_delete_key "#delete", "#input-val"
-  bind_swap "#swap", "#start-year", "#end-year", '#input-val'
+  # bind_swap "#swap", "#start-year", "#end-year", '#input-val'
   bind_select "#start-year", "#input-val"
   bind_select "#end-year", "#input-val"
 
-  $('#input-val').on 'input', ->
-    $("#output-val").html "$#{discount(cpis, $("#input-val").html(), get_value('#start-year'), get_value('#end-year'))}"
   Select.init({className: 'select-theme-dark year-select'})
 
 desktop = -> true
