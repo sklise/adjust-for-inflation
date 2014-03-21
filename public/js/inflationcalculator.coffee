@@ -1,97 +1,97 @@
 discount = (table, amount, start_year, end_year=(new Date()).getFullYear()) ->
   (amount * (table[end_year] / table[start_year]))
 
-bind_select = (select, input) ->
-  $(select).change ->
-    $(input).trigger('input')
-
-bind_delete_key = (del, input) ->
-  $(del).click ->
-    previous = $(input).val()
-    $(input).val(previous.substr(0,previous.length-1))
-    $(input).trigger('input')
-
-bind_decimal = (decimal, input) ->
-  $(decimal).click ->
-    previous = $(input).html()
-    console.log previous
-    return false if _.contains(previous, ".") && previous.length > 0
-
-    if previous.length is 0
-      $(input).html("0.")
-    else
-      $(input).html("#{previous}.")
-    $(input).trigger('input')
-
-bind_swap = (swap, start, end, input) ->
-  $(swap).click ->
-    start_val = $(start).val()
-    end_val = $(end).val()
-    parseInt end_val
-    $(start).val(parseInt end_val)
-    $(end).val(parseInt start_val)
-    $(input).trigger('input')
-    $(@).toggleClass('reversed')
-    false
-
-get_value = (id) -> $(id).val()
-
 YearOption = React.createClass
+  getInitialState: -> @props
   render: ->
-    (React.DOM.option {value:@props.year, children:@props.year})
+    React.DOM.option
+      value: @state.year
+      children: @state.year
+
 
 YearSelect = React.createClass
-  getInitialState: -> data: cpis
+  getInitialState: ->
+    s = @props
+    s.data = cpis
+    s
   render: ->
-    React.DOM.select {className:"year-select", id: @props.id},
-      _.map(@state.data, (cpis,year) -> (YearOption {year:year}))
-
-YearSelects = React.createClass
-  render: ->
-    React.DOM.div {id:"year-selects"},
-      YearSelect({id:"start-year", data:cpis}),
-      React.DOM.a({href:"#",id:"swap"},"➣"),
-      YearSelect({id:"end-year", data:cpis})
+    t = @
+    React.DOM.select {className:"year-select", id: @props.id, defaultValue: t.state.selected, onChange: @props.update },
+      _.map @state.data, (cpis,year) ->
+        YearOption {year:year,selected_value: t.state.selected}
 
 NumberKey = React.createClass
   click: -> @props.click(@props.number)
   render: ->
     React.DOM.button {id:"key-#{@props.number}", onClick: @click}, @props.number
 
+DecimalKey = React.createClass
+  render: ->
+    React.DOM.button {onClick: @click}, "."
+
+DeleteKey = React.createClass
+  render: ->
+    React.DOM.button {onClick: @click},
+      React.DOM.i {className:'glyphicons delete'}, ""
+
+
 Monies = React.createClass
-  getInitialState: -> result:0.00,input:0.00
+  getInitialState: ->
+    result:0.00,
+    input:0.00,
+    start:1913,
+    end: 2012
+
   handleInput: (event) ->
     new_input = parseFloat "#{@state.input}#{event}"
     @setState
       input: new_input
-      result: discount(cpis, new_input, get_value('#start-year'), get_value('#end-year'))
+      result: discount(cpis, new_input, @state.start, @state.end)
+
+  updateEnd: (event) ->
+    @setState
+      end: parseInt event.target.value
+      result: discount(cpis, @state.input, @state.start, parseInt(event.target.value))
+
+  updateStart: (event) ->
+    @setState
+      start: parseInt event.target.value
+      result: discount(cpis, @state.input, parseInt(event.target.value), @state.end)
 
   render: ->
     numberClick = @handleInput
     React.DOM.div null,
-      YearSelects(),
+      React.DOM.div {id:"year-selects"},
+        YearSelect({
+          id:"start-year",
+          data: cpis
+          selected: @state.start
+          update: @updateStart
+        }),
+        React.DOM.a({href:"#",id:"swap"},
+          React.DOM.i {className:"glyphicons chevron-right"}),
+        YearSelect({
+          id:"end-year",
+          data:cpis,
+          selected: @state.end
+          update: @updateEnd
+        })
       React.DOM.div({id:"values"},
         React.DOM.div {id:"output-val"}, "$#{@state.result.toFixed(2)}"
         React.DOM.div {id:"input-val"}, "$#{@state.input.toFixed(2)}"),
       React.DOM.div({id:"keypad"},
         _.map(_.range(1,10), (n) -> (NumberKey {number:n, click: numberClick})),
-        NumberKey {number:0}
+        DecimalKey({props:@state}),
+        NumberKey {number:0, click: numberClick}
+        DeleteKey(),
       )
 
 mobile = ->
-  monies = Monies()
+  window.monies = Monies()
   React.renderComponent(monies,document.getElementById("container"))
-
+  Select.init({className: 'select-theme-dark year-select'})
   # TODO: Fix fastclick
   # FastClick.attach(document.body);
-
-  bind_decimal "#decimal", "#input-val"
-  bind_delete_key "#delete", "#input-val"
-  # bind_swap "#swap", "#start-year", "#end-year", '#input-val'
-  bind_select "#start-year", "#input-val"
-  bind_select "#end-year", "#input-val"
-
-  Select.init({className: 'select-theme-dark year-select'})
 
 desktop = -> true
 
