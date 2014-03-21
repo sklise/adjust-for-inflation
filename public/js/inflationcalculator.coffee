@@ -27,11 +27,11 @@ NumberKey = React.createClass
 
 DecimalKey = React.createClass
   render: ->
-    React.DOM.button {onClick: @click}, "."
+    React.DOM.button {onClick: @props.click}, "."
 
 DeleteKey = React.createClass
   render: ->
-    React.DOM.button {onClick: @click},
+    React.DOM.button {onClick: @props.click},
       React.DOM.i {className:'glyphicons delete'}, ""
 
 
@@ -48,6 +48,17 @@ Monies = React.createClass
       input: new_input
       result: discount(cpis, new_input, @state.start, @state.end)
 
+  decimal: ->
+
+  backspace: ->
+    input_string = "#{@state.input}"
+    shortened_string = input_string.substr(0,input_string.length-1)
+    new_input = parseFloat(shortened_string || 0)
+
+    @setState
+      input: new_input
+      result: discount(cpis, new_input, @state.start, @state.end)
+
   updateEnd: (event) ->
     @setState
       end: parseInt event.target.value
@@ -60,6 +71,8 @@ Monies = React.createClass
 
   render: ->
     numberClick = @handleInput
+    backspace = @backspace
+    decimal = @decimal
     React.DOM.div null,
       React.DOM.div {id:"year-selects"},
         YearSelect({
@@ -81,9 +94,8 @@ Monies = React.createClass
         React.DOM.div {id:"input-val"}, "$#{@state.input.toFixed(2)}"),
       React.DOM.div({id:"keypad"},
         _.map(_.range(1,10), (n) -> (NumberKey {number:n, click: numberClick})),
-        DecimalKey({props:@state}),
-        NumberKey {number:0, click: numberClick}
-        DeleteKey(),
+        NumberKey({number:0, click: numberClick}),
+        DeleteKey({click: backspace})
       )
 
 mobile = ->
