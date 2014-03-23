@@ -1,0 +1,24 @@
+{
+  "name": "adjust-for-inflation",
+  "version": "0.0.0",
+  "description": "input money find out how much money it was/is in a different year",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sklise/adjust-for-inflation.git"
+  },
+  "author": "Steve Klise",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sklise/adjust-for-inflation/issues"
+  },
+  "homepage": "http://inflation.skli.se",
+  "dependencies": {
+    "harp": "~0.11.2"
+  },
+  "devDependencies": {
+    "gulp": "~3.5.6",
+    "gulp-awspublish": "0.0.11",
+    "mkdirp": "~0.3.5",
+    "dotenv": "~0.2.5"
+  }
+}
