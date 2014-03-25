@@ -83,8 +83,6 @@ mobile = ->
   window.monies = Monies()
   React.renderComponent(monies,document.getElementById("container"))
   Select.init({className: 'select-theme-default year-select'})
-  # TODO: Fix fastclick
-  # FastClick.attach(document.body);
 
 desktop = -> true
 
