@@ -2,14 +2,7 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "glyphicons";
-
-$background:#363740;
-$gray: #585A69;
-$blue: #8CC3F2;
-$green: #68C480;
-$light: #D9C2AD;
-$background: #585A69;
-$gray: #363740;
+@import "colors";
 
 body {
   background-color: $background;
@@ -22,7 +15,7 @@ body {
 
 #wrapper {
   @include outer-container;
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -31,73 +24,19 @@ body {
 }
 
 h1 {
-  color: $blue;
+  color: $light_blue;
   font-size: 24px;
-  margin: 0;
+  margin: 0 0 1rem;
   padding: 0;
   text-align: center;
   text-transform: uppercase;
 }
 
-#keypad {
-  margin-top: 2.35765%;
-  border-top: $gray 1px solid;
-  padding-top: 2.35765%;
-  @include span-columns(12);
-}
-
-#keypad button {
-  @include box-sizing(border-box);
-  @include span-columns(4);
-  @include omega(3n);
-  @include appearance(none);
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-
-  // box-shadow: inset 0 0 2px $background;
-  background: transparentize($gray,.4);
-  border-radius: 4px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: $gray;
-  color: inherit;
-  height: 58px;
-  overflow: hidden;
-  font-family: inherit;
-  font-size: 1.6em;
-  font-weight: 300;
-  display: block;
-  text-align: center;
-  transition: all 40ms ease-in-out;
-  margin-bottom: 2.35765%;
-  vertical-align: baseline;
-
-  &:focus {
-    outline: none;
-  }
-
-  &:active {
-    box-shadow: inset 0 0 8px rgba(0,20,0,.5);
-    outline: none;
-    border-color:  $green;
-    // TODO: how to have the font size increase w/o vertical shift;
-    // font-size: 1.9em;
-  }
-}
-
-#year-selects {
-  @include row;
-}
-
 .year-select {
-  @include span-columns(5);
-  border-radius: 4px;
   font-size: 18px;
   font-family: inherit;
-  text-align: center;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  @include span-columns(4);
+  @include omega();
 }
 
 #end-year {
@@ -123,31 +62,46 @@ h1 {
   }
 }
 
-#values {
-  overflow: hidden;
-  margin: 1em 0 0;
-  text-align: right;
+.explanation {
+  @include span-columns(12);
+  @include omega();
+}
 
-  div {
-    padding: 0.1em 0.3em;
+.left {
+  @include span-columns(8);
+  line-height: 1.25rem;
+  border: 1px solid transparent;
+
+  input,
+  #output-value {
+    @include span-columns(6 of 8);
+    text-align: right;
+    font-size: 1.25rem;
+  }
+
+  .preposition {
+    @include span-columns(2 of 8);
+  }
+
+  input, #output-value, .preposition {
+    padding: 0.25rem;
+    line-height: 1.25rem;
+    @include box-sizing(border-box);
+    vertical-align: middle;
   }
 }
 
-#output-val {
-  // border: 1px solid transparentize($gray,.4);
-  border-bottom: none;
-  font-size: 180%;
+.breakdown {
+  @include span-columns(8);
+  @include shift(2);
 }
 
-#input-val {
-  display: block;
-  min-height: 1em;
-  font-size: 150%;
-  @include appearance(none);
-  background: transparentize($gray,.4);
-  border: none;
-  border-radius: 4px;
-  appearance: none;
-  width: 100%;
-  margin: 0;
+input {
+  -webkit-appearance: none;
+  border-radius: 0.25em;
+  background: none;
+  border: $green 1px solid;
+  color: $light;
 }
+
+@import "select-theme-default";

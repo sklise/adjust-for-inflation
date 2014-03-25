@@ -6,6 +6,12 @@
     "type": "git",
     "url": "git://github.com/sklise/adjust-for-inflation.git"
   },
+  "scripts": {
+    "start": "harp server",
+    "build": "gulp build",
+    "publish": "gulp publish",
+    "deploy": "gulp"
+  },
   "author": "Steve Klise",
   "license": "MIT",
   "bugs": {

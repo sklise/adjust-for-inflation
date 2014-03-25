@@ -1,0 +1,160 @@
+@import "bourbon/bourbon";
+@import "colors";
+
+.select-select {
+  display: none;
+  /* For when we are on a small touch device and want to use native controls */
+  -webkit-pointer-events: none;
+  -moz-pointer-events: none;
+  pointer-events: none;
+  position: absolute;
+  opacity: 0; }
+
+.select-element, .select-element:after, .select-element:before, .select-element *, .select-element *:after, .select-element *:before {
+  @include box-sizing(border-box);
+}
+
+.select-element {
+  position: absolute;
+  display: none;
+
+  &.select-open {
+    display: block;
+  }
+}
+
+.select-theme-default, .select-theme-default *, .select-theme-default *:after, .select-theme-default *:before {
+  @include box-sizing(border-box);
+}
+
+.select.select-theme-default .select-content {
+  border-radius: 0.25em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: $gray;
+  font-family: inherit;
+  color: inherit;
+  overflow: auto;
+  max-width: 18rem;
+  max-height: 18rem;
+  -webkit-overflow-scrolling: touch; }
+  @media (max-width: 27rem), (max-height: 27rem) {
+    .select.select-theme-default .select-content {
+      max-width: 11.25rem;
+      max-height: 11.25rem; } }
+
+.select.select-theme-default .select-options {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  margin: 0;
+  padding: 0;
+
+  .select-option {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    line-height: 1.25rem;
+    padding: 0.25rem 1rem 0.25rem 1rem;
+    display: block;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.select-option-selected:before {
+      content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='-0.5 0 20 15'><rect fill='#444444' stroke='none' transform='rotate(45 4.0033 8.87436)' height='5' width='6.32304' y='6.37436' x='0.84178'></rect><rect fill='#444444' stroke='none' transform='rotate(45 11.1776 7.7066)' width='5' height='16.79756' y='-0.69218' x='8.67764'></rect></svg>");
+      position: absolute;
+      left: 0.5em;
+      top: 0;
+      bottom: 0.1em;
+      height: 1em;
+      width: 1em;
+      margin: auto;
+    }
+
+    &:hover, &.select-option-highlight  {
+      background: #63a2f1;
+      color: white;
+
+      &.select-option-selected:before {
+       content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='-0.5 0 20 15'><rect fill='white' stroke='none' transform='rotate(45 4.0033 8.87436)' height='5' width='6.32304' y='6.37436' x='0.84178'></rect><rect fill='white' stroke='none' transform='rotate(45 11.1776 7.7066)' width='5' height='16.79756' y='-0.69218' x='8.67764'></rect></svg>");
+      }
+    }
+
+    &:first-child, &:last-child {
+      border-radius: 0.25em 0.25em 0 0;
+    }
+  }
+}
+
+.select-target.select-theme-default {
+  @include box-sizing(border-box);
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  border-radius: 0.25em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  position: relative;
+  padding: 0.25rem 1rem 0.25rem 0.65rem;
+  background: $background;
+  border: 1px solid $green;
+  cursor: pointer;
+  color: $light;
+  text-decoration: none;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    border-color: $blue;
+    color: $blue;
+  }
+
+  &.select-target-focused,
+  .select-target-focused:focus {
+    border-color: $blue;
+    outline: none;
+  }
+
+  b {
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 1.25rem;
+    width: 2em;
+
+    &:before, &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      margin: auto;
+      right: 0;
+      height: 0;
+      width: 0;
+      border: 0.263em solid transparent;
+    }
+
+    &:before {
+      top: 0;
+      border-bottom-color: inherit;
+    }
+
+    &:after {
+      bottom: 0;
+      border-top-color: inherit;
+    }
+  }
+}

@@ -1,13 +1,15 @@
 discount = (table, amount, start_year, end_year=(new Date()).getFullYear()) ->
   (amount * (table[end_year] / table[start_year]))
 
+percent_change = (start,end) ->
+  ((end-start)/start*100).toFixed(2)
+
 YearOption = React.createClass
   getInitialState: -> @props
   render: ->
     React.DOM.option
       value: @state.year
       children: @state.year
-
 
 YearSelect = React.createClass
   getInitialState: ->
@@ -20,44 +22,21 @@ YearSelect = React.createClass
       _.map @state.data, (cpis,year) ->
         YearOption {year:year,selected_value: t.state.selected}
 
-NumberKey = React.createClass
-  click: -> @props.click(@props.number)
-  render: ->
-    React.DOM.button {id:"key-#{@props.number}", onClick: @click}, @props.number
-
-DecimalKey = React.createClass
-  render: ->
-    React.DOM.button {onClick: @props.click}, "."
-
-DeleteKey = React.createClass
-  render: ->
-    React.DOM.button {onClick: @props.click},
-      React.DOM.i {className:'glyphicons delete'}, ""
-
-
 Monies = React.createClass
   getInitialState: ->
-    result:0.00,
-    input:0.00,
-    start:1913,
-    end: 2012
+    input: "1.00",
+    start: 1940,
+    end: 2012,
+    result: discount(cpis, 1, 1913, 2012)
 
   handleInput: (event) ->
-    new_input = parseFloat "#{@state.input}#{event}"
+    new_float = parseFloat(event.target.value || 0)
     @setState
-      input: new_input
-      result: discount(cpis, new_input, @state.start, @state.end)
+      input: "#{event.target.value}"
+      result: discount(cpis, new_float, @state.start, @state.end)
 
-  decimal: ->
-
-  backspace: ->
-    input_string = "#{@state.input}"
-    shortened_string = input_string.substr(0,input_string.length-1)
-    new_input = parseFloat(shortened_string || 0)
-
-    @setState
-      input: new_input
-      result: discount(cpis, new_input, @state.start, @state.end)
+  empty: (event) ->
+    event.target.value = ""
 
   updateEnd: (event) ->
     @setState
@@ -70,38 +49,40 @@ Monies = React.createClass
       result: discount(cpis, @state.input, parseInt(event.target.value), @state.end)
 
   render: ->
-    numberClick = @handleInput
-    backspace = @backspace
-    decimal = @decimal
+    changeInput = @handleInput
+
     React.DOM.div null,
-      React.DOM.div {id:"year-selects"},
-        YearSelect({
-          id:"start-year",
-          data: cpis
-          selected: @state.start
-          update: @updateStart
-        }),
-        React.DOM.a({href:"#",id:"swap"},
-          React.DOM.i {className:"glyphicons chevron-right"}),
-        YearSelect({
-          id:"end-year",
-          data:cpis,
-          selected: @state.end
-          update: @updateEnd
-        })
-      React.DOM.div({id:"values"},
-        React.DOM.div {id:"output-val"}, "$#{@state.result.toFixed(2)}"
-        React.DOM.div {id:"input-val"}, "$#{@state.input.toFixed(2)}"),
-      React.DOM.div({id:"keypad"},
-        _.map(_.range(1,10), (n) -> (NumberKey {number:n, click: numberClick})),
-        NumberKey({number:0, click: numberClick}),
-        DeleteKey({click: backspace})
-      )
+      React.DOM.div({className:"left"},
+        React.DOM.input
+          type:"number"
+          value: @state.input
+          onInput: changeInput
+          onFocus: @empty
+        React.DOM.div {className:"preposition"}, "in"
+      ),
+      YearSelect({
+        id:"start-year",
+        data: cpis
+        selected: @state.start
+        update: @updateStart
+      }),
+      React.DOM.p {className: "explanation"}, "has the same buying power as"
+      React.DOM.div({className: "left"},
+        React.DOM.div {id:"output-value"}, "$#{@state.result.toFixed(2)}"
+        React.DOM.div {className:"preposition"}, "in"
+      ),
+      YearSelect({
+        id:"end-year",
+        data:cpis,
+        selected: @state.end
+        update: @updateEnd
+      }),
+      React.DOM.p {className:"breakdown"}, "A change of #{percent_change(cpis[@state.start],cpis[@state.end])}% over #{Math.abs(@state.end - @state.start)} years."
 
 mobile = ->
   window.monies = Monies()
   React.renderComponent(monies,document.getElementById("container"))
-  Select.init({className: 'select-theme-dark year-select'})
+  Select.init({className: 'select-theme-default year-select'})
   # TODO: Fix fastclick
   # FastClick.attach(document.body);
 
