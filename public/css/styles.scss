@@ -6,7 +6,7 @@
 body {
   background-color: $background;
   color: $light;
-  font-family: 'Avenir-Light';
+  font-family: HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Neue', Open-Light, sans-serif;
   font-weight: 300;
   font-size: 18px;
   text-align: center;
@@ -29,6 +29,7 @@ h1 {
   padding: 0;
   text-align: center;
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 .year-select {
