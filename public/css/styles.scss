@@ -105,3 +105,20 @@ input {
 }
 
 @import "select-theme-default";
+
+svg {
+  .axis {
+
+    path,
+    line {
+      fill: none;
+      stroke: black;
+      shape-rendering: crispEdges;
+    }
+
+    text {
+      font-size: 0.8em;
+      font-family: inherit;
+    }
+  }
+}

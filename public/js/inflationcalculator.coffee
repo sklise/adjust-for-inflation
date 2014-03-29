@@ -52,6 +52,7 @@ Monies = React.createClass
     changeInput = @handleInput
 
     React.DOM.div null,
+      React.DOM.h1({children:"Adjust for Inflation"}),
       React.DOM.div({className:"left"},
         React.DOM.input
           type:"number"
@@ -78,10 +79,73 @@ Monies = React.createClass
         update: @updateEnd
       }),
       React.DOM.p {className:"breakdown"}, "A change of #{percent_change(cpis[@state.start],cpis[@state.end])}% over #{Math.abs(@state.end - @state.start)} years."
+      React.DOM.div {id:"chart"}
 
 init = ->
   window.monies = Monies()
-  React.renderComponent(monies,document.getElementById("container"))
+  React.renderComponent(monies,document.getElementById("wrapper"))
   Select.init({className: 'select-theme-default year-select'})
+
+  width = 600
+  height = 500
+
+  xScale = d3.scale.linear().domain(
+    [_.min(_.keys cpis), _.max(_.keys cpis)]
+  ).range([0, width]);
+  yScale = d3.scale.linear().domain([
+    _.min(_.values cpis), _.max(_.values cpis)
+  ]).range([height, 0]);
+
+  xAxis = d3.svg.axis()
+    .scale(xScale)
+    .tickFormat(d3.format(".0f"))
+    .orient("bottom");
+  yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+  line = d3.svg.line().x((d) ->
+    x(d.date)
+  ).y((d) ->
+    y(d.close)
+  )
+
+  margin = 40
+
+  window.years = _.map _.keys(cpis), (y) ->
+    parseInt(y)
+
+  window.chart_data = _.zip(years, _.values(cpis))
+
+  lineFunction = d3.svg.line()
+    .x((d) -> xScale d[0])
+    .y((d) -> yScale d[1])
+    .interpolate("linear")
+
+  svg = d3.select("#chart").append("svg")
+    .attr("width", width+margin*2)
+    .attr("height", height+margin*2)
+    .append("g")
+    .attr("transform", "translate(" + margin + "," + margin + ")");
+
+  svg.append("g")
+      .attr("class","axis")
+      .attr("transform", "translate(0,#{height})")
+      .call(xAxis)
+
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("CPI")
+
+  svg.append("path")
+    .attr("d", lineFunction(chart_data))
+    .attr("stroke", "#8CC3F2")
+    .attr("stroke-width", 2)
+    .attr("fill", "none")
 
 $(init)
