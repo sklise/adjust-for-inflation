@@ -9,4 +9,5 @@ js/jquery.js
 js/lodash.js
 js/react.js
 js/select.js
+js/d3.js
 js/inflationcalculator.js
