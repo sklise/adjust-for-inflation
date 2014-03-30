@@ -11,10 +11,11 @@ graph_data = (list, start, end) ->
     [parseInt(a[0]), discount(list, 1, start, a[0])]
 
 draw_graph = (start,end) ->
-  width = 600
-  height = 500
-  margin = 40
-  margin_left = 60
+  margin_sides = 60
+  margin_top = 30
+  raw_width = parseInt(d3.select("#chart").style('width'),10)
+  width = raw_width - margin_sides
+  height = raw_width - margin_top * 2
 
   xScale = d3.scale.linear().domain([start, end]).range([0, width]);
   yScale = d3.scale.linear().domain([1, discount(cpis, 1, start, end)]).range([height, 0]);
@@ -32,10 +33,10 @@ draw_graph = (start,end) ->
 
   $("#chart").empty()
   svg = d3.select("#chart").append("svg")
-    .attr("width", width+margin+margin_left)
-    .attr("height", height+margin*2)
+    .attr("width", width+margin_sides*2)
+    .attr("height", height+margin_top)
     .append("g")
-    .attr("transform", "translate(" + margin_left + "," + margin + ")");
+    .attr("transform", "translate(" + margin_sides + ",0)");
 
   svg.append("g")
       .attr("class","axis")
@@ -137,5 +138,6 @@ init = ->
   react = React.renderComponent(monies,document.getElementById("wrapper"))
   Select.init({className: 'select-theme-default year-select'})
   draw_graph(react.state.start,react.state.end)
+  d3.select(window).on('resize', -> draw_graph(react.state.start,react.state.end))
 
 $(init)
