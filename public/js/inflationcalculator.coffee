@@ -33,7 +33,7 @@ draw_graph = (start,end) ->
 
   $("#chart").empty()
   svg = d3.select("#chart").append("svg")
-    .attr("width", width+margin_sides*2)
+    .attr("width", width+margin_sides)
     .attr("height", height+margin_top)
     .append("g")
     .attr("transform", "translate(" + margin_sides + ",0)");
