@@ -6,11 +6,27 @@ percent_change = (start,end) ->
 
 # Selects a subset of years and returns an array of years and discounted values starting at $1.00
 graph_data = (list, start, end) ->
-  selected = _.where _.pairs(list), (a) -> a[0] >= start and a[0] <= end
-  _.map selected, (a) ->
-    [parseInt(a[0]), discount(list, 1, start, a[0])]
+  if start < end
+    low = start
+    high = end
+  else
+    low = end
+    high = start
 
-draw_graph = (start,end) ->
+  selected = _.where _.pairs(list), (a) -> a[0] >= low and a[0] <= high
+  _.map selected, (a) ->
+    [parseInt(a[0]), discount(list, 1, low, a[0])]
+
+draw_graph = (first,second) ->
+  if first < second
+    start = first
+    end = second
+  else
+    start = second
+    end = first
+
+  data = graph_data(cpis, start, end)
+
   margin_sides = 60
   margin_top = 30
   raw_width = parseInt(d3.select("#chart").style('width'),10)
@@ -18,7 +34,10 @@ draw_graph = (start,end) ->
   height = raw_width - margin_top * 2
 
   xScale = d3.scale.linear().domain([start, end]).range([0, width]);
-  yScale = d3.scale.linear().domain([1, discount(cpis, 1, start, end)]).range([height, 0]);
+  yScale = d3.scale.linear().domain([
+    _.min(data, (d) -> d[1])[1],
+    _.max(data, (d) -> d[1])[1]
+  ]).range([height, 0]);
 
   lineFunction = d3.svg.line()
     .x((d) -> xScale d[0])
@@ -48,7 +67,7 @@ draw_graph = (start,end) ->
     .call(yAxis)
 
   svg.append("path")
-    .attr("d", lineFunction(graph_data(cpis, start, end)))
+    .attr("d", lineFunction(data))
     .attr("class","graphline")
 
 YearOption = React.createClass
