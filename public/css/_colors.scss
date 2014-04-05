@@ -1,9 +1,10 @@
-$gray: #3a3a3a;
-$blue: #8CC3F2;
+// $gray: #3a3a3a;
+// $light: #f0f0f0;
+// $light_blue: #4FCCFF;
+// $background: #2d2d2d;
+$light_blue: #15aeff;
+$light: #020202;
+$background: #fae4c9;
+$gray: desaturate($background, 50);
+$blue: #00678d;
 $green: #14C439;
-$light: #f0f0f0;
-$light_blue: #4FCCFF;
-$background: #2d2d2d;
-$light: #2d2d2d;
-$background: #fafafa;
-$gray: #aaa;
