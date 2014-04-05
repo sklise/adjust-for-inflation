@@ -12,7 +12,8 @@ body {
   text-align: center;
 }
 
-#wrapper {
+#wrapper,
+#info {
   @include outer-container;
   max-width: 600px;
   margin: 0 auto;
@@ -20,6 +21,10 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding:0.75em 0.5em;
+}
+
+#info {
+  margin-top: 1em;
 }
 
 h1 {
