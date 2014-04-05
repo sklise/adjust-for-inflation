@@ -9,8 +9,7 @@
   "scripts": {
     "start": "harp server",
     "build": "gulp build",
-    "publish": "gulp publish",
-    "deploy": "gulp"
+    "publish": "gulp publish"
   },
   "author": "Steve Klise",
   "license": "MIT",
